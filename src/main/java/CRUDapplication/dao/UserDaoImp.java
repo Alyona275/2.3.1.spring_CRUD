@@ -1,6 +1,5 @@
 package CRUDapplication.dao;
 
-import CRUDapplication.model.Role;
 import CRUDapplication.model.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
@@ -37,11 +36,6 @@ public class UserDaoImp implements UserDao{
     }
 
     @Override
-    public Role getRoleById(long id) {
-        return em.find(Role.class, id);
-    }
-
-    @Override
     public User findByUsername(String username) {
         List<User> userList = getUsers();
         User res = null;
@@ -60,10 +54,5 @@ public class UserDaoImp implements UserDao{
         TypedQuery<User> namedQuery = em.createNamedQuery("User.getAll", User.class);
 
         return namedQuery.getResultList();
-    }
-
-    @Override
-    public List<Role> getRoles() {
-        return em.createNamedQuery("Role.getAll", Role.class).getResultList();
     }
 }

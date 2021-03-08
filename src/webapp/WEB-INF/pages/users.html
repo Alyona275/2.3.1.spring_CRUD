@@ -13,6 +13,7 @@
         <th>Name</th>
         <th>Age</th>
         <th>Email</th>
+        <th>Roles</th>
     </tr>
     <th:block th:each="user : ${userList}">
         <tr>
@@ -20,6 +21,7 @@
             <td th:text="${user.getUsername()}">VALUE</td>
             <td th:text="${user.getAge()}">value</td>
             <td th:text="${user.getEmail()}">value</td>
+            <td th:text="${user.getRoles()}">value</td>
             <td>
                 <a th:href="@{/admin/update/{id}(id = ${user.getId()})}">Update</a>
                 <a th:href="@{/admin/delete/{id}(id = ${user.getId()})}">Delete</a>
@@ -27,9 +29,10 @@
         </tr>
     </th:block>
 </table>
-<th:block>
-    <a th:href="@{/admin/add}">Add User</a>
-</th:block>
+
+<a th:href="@{/admin/add}">Add User</a><br>
+
+<a th:href="@{/logout}">Logout</a>
 
 </body>
 </html>

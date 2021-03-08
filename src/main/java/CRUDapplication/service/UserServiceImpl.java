@@ -1,23 +1,15 @@
 package CRUDapplication.service;
 
 import CRUDapplication.dao.UserDao;
-import CRUDapplication.model.Role;
 import CRUDapplication.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
 
@@ -50,8 +42,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Role getRoleById(long id) {
-        return userDao.getRoleById(id);
+    public User findByUsername(String username) {
+        return userDao.findByUsername(username);
     }
 
     @Override
@@ -59,22 +51,39 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userDao.getUsers();
     }
 
-    @Override
-    public List<Role> getRoles() {
-        return userDao.getRoles();
-    }
+//    @Override
+//    @Transactional(readOnly = true)
+//    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+//        User user = userDao.findByUsername(s);
+//
+//        System.out.println("UserDetails ---- " + user.toString());
+//        if (user == null) {
+//            throw new UsernameNotFoundException(String.format("User '%s' not found", s));
+//        }
+//        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+//                user.getAuthorities());
+//    }
+//
+//    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
+//        System.out.println("UserDetails roles ---- " + roles.toString());
+//        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
+//    }
 
-    @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = userDao.findByUsername(s);
-        if (user == null) {
-            throw new UsernameNotFoundException(String.format("User '%s' not found", s));
-        }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-                mapRolesToAuthorities(user.getRoles()));
-    }
+//    @Override
+//    @Transactional(readOnly = true)
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        User user = userDao.findByUsername(username);
+//
+//        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+//
+//        System.out.println("UserDetails ---- " + user.toString());
+//
+//        for (Role role : user.getRoles()) {
+//            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+//        }
+//        System.out.println("UserDetails role ---- " + grantedAuthorities);
+//        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
+//    }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
-        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getRole())).collect(Collectors.toSet());
-    }
+
 }

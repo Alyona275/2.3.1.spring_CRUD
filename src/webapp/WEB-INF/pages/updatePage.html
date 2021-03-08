@@ -3,25 +3,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-        <title>Update</title>
+    <title>Update</title>
 </head>
 <body>
-<th:block>
-        <h2>Update</h2>
-        <form th:method="POST" th:action="@{/admin/update}" th:object="${user}">
-            <input type="hidden" th:field="*{id}" id="id">
-            <label for="username">Name</label>
-            <input type="text" th:field="*{username}" id="username">
-            <br>
-            <label for="age">Age</label>
-            <input type="text" th:field="*{age}" id="age">
-            <br>
-            <label for="email">Email</label>
-            <input type="text" th:field="*{email}" id="email">
-            <br>
-            <input type="submit" value="Update user">
-        </form>
-</th:block>
+
+<h2>Update</h2>
+<form th:method="POST" th:action="@{/admin/update}" th:object="${user}">
+    <input type="hidden" th:field="*{id}" id="id">
+    <label for="username">Name</label>
+    <input type="text" th:field="*{username}" id="username">
+    <br>
+    <label for="age">Age</label>
+    <input type="text" th:field="*{age}" id="age">
+    <br>
+    <label for="email">Email</label>
+    <input type="text" th:field="*{email}" id="email">
+    <br>
+    <label for="password">Password</label>
+    <input type="text" th:field="*{password}" id="password">
+    <br>
+    <select name="roleName" >
+        <option value="ROLE_USER">USER</option>
+        <option value="ROLE_ADMIN">ADMIN</option>
+    </select>
+    <br>
+    <input type="submit" value="Update">
+</form>
+
+<a th:href="@{/logout}">Logout</a>
 
 </body>
 </html>

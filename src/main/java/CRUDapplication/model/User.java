@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,13 +22,12 @@ public class User implements UserDetails {
     private String email;
     @Column
     private String password;
-//    @Transient
-//    private String passwordConfirm;
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> roles;
 
     public User() {}
 
@@ -47,10 +45,6 @@ public class User implements UserDetails {
     public void setId(long id) {
         this.id = id;
     }
-
-//    public String getName() {
-//        return username;
-//    }
 
     public void setUsername(String name) {
         this.username = name;
@@ -76,24 +70,12 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-//    public String getPasswordConfirm() {
-//        return passwordConfirm;
-//    }
-//
-//    public void setPasswordConfirm(String passwordConfirm) {
-//        this.passwordConfirm = passwordConfirm;
-//    }
-
     public Set<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    public boolean addRole(Role role) {
-        return this.roles.add(role);
     }
 
     @Override

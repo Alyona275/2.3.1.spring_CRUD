@@ -21,14 +21,16 @@
         <label for="password">Password</label>
         <input type="text" th:field="${user.password}" id="password">
         <br>
-        <select name="roleId" >
-            <option th:each="role : ${roleList}"
-                    th:value="${role.getId()}"
-                    th:text="${role.role}">Wireframe</option>
+        <select name="roleName" >
+            <option value="ROLE_USER">USER</option>
+            <option value="ROLE_ADMIN">ADMIN</option>
         </select>
         <br>
         <input type="submit" value="Add user">
     </form>
 </th:block>
+
+<a th:href="@{/logout}">Logout</a>
+
 </body>
 </html>
