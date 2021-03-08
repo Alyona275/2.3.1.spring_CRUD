@@ -1,5 +1,6 @@
 package CRUDapplication.dao;
 
+import CRUDapplication.model.Role;
 import CRUDapplication.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -35,6 +36,11 @@ public class UserDaoImp implements UserDao{
     }
 
     @Override
+    public Role getRoleById(long id) {
+        return em.find(Role.class, id);
+    }
+
+    @Override
     public User findByUsername(String username) {
         User user = em.createQuery("select u from User u where u.username = :username", User.class)
                 .setParameter("username", username).getSingleResult();
@@ -46,5 +52,10 @@ public class UserDaoImp implements UserDao{
         TypedQuery<User> namedQuery = em.createNamedQuery("User.getAll", User.class);
 
         return namedQuery.getResultList();
+    }
+
+    @Override
+    public List<Role> getRoles() {
+        return em.createNamedQuery("Role.getAll", Role.class).getResultList();
     }
 }

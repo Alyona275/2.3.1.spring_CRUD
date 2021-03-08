@@ -1,6 +1,7 @@
 package CRUDapplication.service;
 
 import CRUDapplication.dao.UserDao;
+import CRUDapplication.model.Role;
 import CRUDapplication.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Role getRoleById(long id) {
+        return userDao.getRoleById(id);
+    }
+
+    @Override
     public User findByUsername(String username) {
         return userDao.findByUsername(username);
     }
@@ -49,6 +55,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUsers() {
         return userDao.getUsers();
+    }
+
+    @Override
+    public List<Role> getRoles() {
+        return userDao.getRoles();
     }
 
 }

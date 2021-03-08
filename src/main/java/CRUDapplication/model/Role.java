@@ -7,6 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "roles")
+@NamedQuery(name = "Role.getAll", query = "SELECT r from Role r")
 public class Role implements GrantedAuthority {
 
     @Id

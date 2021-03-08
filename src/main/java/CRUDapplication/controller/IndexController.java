@@ -33,16 +33,19 @@ public class IndexController {
 @GetMapping("/registration")
 public String registrationPage(Model model) {
     model.addAttribute("user", new User());
+    model.addAttribute("roleList", userService.getRoles());
     return "registration";
 }
     @PostMapping(value = "/registration")
     public String registrationUser(@Validated User user,
-                                   @RequestParam String roleName, BindingResult bindingResult) {
+                                   @RequestParam int[] arrId, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
         Set<Role> role = new HashSet<>();
-        role.add(new Role(roleName));
+        for (int i = 0; i < arrId.length; i++){
+            role.add(userService.getRoleById(arrId[i]));
+        }
         user.setRoles(role);
         userService.addUser(user);
 
