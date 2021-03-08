@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -28,19 +27,8 @@ public class IndexController {
 
     @GetMapping(value = "/")
     public String getHomePage() {
-        List<User> userList = userService.getUsers();
-
-        for (User user : userList) {
-            System.out.println("List ===== "+user.toString());
-        }
-
         return "index";
     }
-
-//    @GetMapping(value = "/login")
-//    public String getLoginPage() {
-//        return "login";
-//    }
 
 @GetMapping("/registration")
 public String registrationPage(Model model) {

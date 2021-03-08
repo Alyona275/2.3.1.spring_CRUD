@@ -1,7 +1,6 @@
 package CRUDapplication.dao;
 
 import CRUDapplication.model.User;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -37,16 +36,9 @@ public class UserDaoImp implements UserDao{
 
     @Override
     public User findByUsername(String username) {
-        List<User> userList = getUsers();
-        User res = null;
-        for (User user : userList) {
-            if (username.equals(user.getUsername())) {
-                res = getUserById(user.getId());
-            } else {
-                throw new UsernameNotFoundException("User not found");
-            }
-        }
-        return res;
+        User user = em.createQuery("select u from User u where u.username = :username", User.class)
+                .setParameter("username", username).getSingleResult();
+        return user;
     }
 
     @Override

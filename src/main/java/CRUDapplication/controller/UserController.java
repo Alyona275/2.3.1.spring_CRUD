@@ -1,6 +1,5 @@
 package CRUDapplication.controller;
 
-import CRUDapplication.dao.UserDao;
 import CRUDapplication.model.User;
 import CRUDapplication.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
